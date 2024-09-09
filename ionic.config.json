@@ -1,0 +1,7 @@
+{
+  "name": "ServiceNow",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
