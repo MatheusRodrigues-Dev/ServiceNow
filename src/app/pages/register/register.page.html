@@ -1,0 +1,39 @@
+<ion-content class="fixed-content" [scrollY]="false" scroll-y="false">
+  <ion-icon (click)="voltar()" class="back" name="arrow-back"> </ion-icon>
+  <div class="content">
+    <div class="header">
+      <ion-img src="../../../assets/image/logo.svg" style="width: 240px; height: 240px;"></ion-img>
+      <h1 class="title">Registro</h1>
+    </div>
+
+    <form (ngSubmit)="registerUser()" #registerForm="ngForm">
+      <ion-input class="input" [(ngModel)]="name" name="name" label="Nome..." labelPlacement="floating" fill="outline" mode="md"></ion-input>
+
+      <ion-input class="input" [(ngModel)]="email" name="email" label="E-mail" labelPlacement="floating" fill="outline" mode="md"></ion-input>
+
+      <ion-input class="input" [(ngModel)]="password" name="password" label="Senha" labelPlacement="floating" fill="outline" mode="md" type="{{mostrarpassword ? 'text' : 'password'}}" clearOnEdit="false" style="margin-top: 20px;">
+        <ion-icon *ngIf="password !== ''" slot="end" name="{{mostrarpassword ? 'eye-off' : 'eye'}}" (click)="alternarVisibilidadepassword()"></ion-icon>
+      </ion-input>
+
+      <ion-item class="input">
+        <ion-label>Tipo</ion-label>
+        <ion-select [(ngModel)]="type" name="type" required>
+          <ion-select-option value="cliente">Cliente</ion-select-option>
+          <ion-select-option value="prestador">Prestador</ion-select-option>
+          <ion-select-option value="administrador">Administrador</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input">
+        <ion-label>Status</ion-label>
+        <ion-select [(ngModel)]="status" name="status" required>
+          <ion-select-option value="pendente">Pendente</ion-select-option>
+          <ion-select-option value="ativo">Ativo</ion-select-option>
+          <ion-select-option value="inativo">Inativo</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="full" type="submit" class="submit-button">Registrar</ion-button>
+    </form>
+  </div>
+</ion-content>

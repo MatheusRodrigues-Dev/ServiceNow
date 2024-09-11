@@ -1,0 +1,94 @@
+/* Define o fundo da página como cinza claro */
+.fixed-content {
+  --background: #f0f0f0; /* Cinza claro */
+}
+
+/* Estilo do ícone de voltar */
+.back {
+  font-size: 24px;
+  color: #f57c00; /* Laranja */
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+/* Estilo do conteúdo central */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+/* Estilo do cabeçalho */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #f57c00; /* Laranja */
+}
+
+/* Estilo do formulário */
+form {
+  width: 100%;
+}
+
+/* Estilo dos campos de entrada */
+.input {
+  --background: #ffffff; /* Fundo branco */
+  --color: #000000; /* Texto preto */
+  margin-bottom: 20px; /* Espaço entre os campos */
+}
+
+/* Estilo dos itens do formulário */
+.form-item {
+  margin-bottom: 20px; /* Espaço entre os itens do formulário */
+}
+
+
+ion-input,
+ion-select {
+  --background: #ffffff; /* Fundo branco para os campos de entrada */
+  --color: #000000; /* Texto preto */
+}
+
+/* Estilo do ícone dentro dos campos de entrada */
+ion-input ion-icon {
+  color: #000000; /* Ícone preto */
+}
+
+/* Estilo do botão de registrar */
+.submit-button {
+  width: 100%;
+  margin-bottom: 10px;
+  --background: #fbc02d; /* Amarelo */
+  --color: #000000; /* Preto para o texto */
+  --border-radius: 8px; /* Borda arredondada */
+  --padding: 10px; /* Espaçamento interno */
+  font-size: 16px; /* Tamanho da fonte */
+}
+
+/* Estilo do botão de registrar ao passar o mouse */
+.submit-button:hover {
+  --background: #f9a825; /* Amarelo mais escuro para efeito hover */
+}
+
+/* Estilo do texto de login */
+.signup-text {
+  margin-top: 20px;
+  text-align: center;
+  color: #999;
+}
+
+.signup-text .blue-text {
+  color: #f57c00; /* Laranja */
+  cursor: pointer;
+  text-decoration: underline; /* Sublinhado para o link */
+}
