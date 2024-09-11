@@ -1,0 +1,75 @@
+/* Define o fundo da página como cinza claro */
+.fixed-content {
+  --background: #f0f0f0; /* Cinza claro */
+}
+
+/* Estilo do ícone de voltar */
+.back {
+  font-size: 24px;
+  color: #f57c00; /* Laranja */
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+/* Estilo do conteúdo central */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+/* Estilo do cabeçalho */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+/* Estilo do logo */
+.logo {
+  margin-bottom: 20px;
+}
+
+/* Estilo do título */
+.title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #343a40; /* Cinza escuro */
+  margin: 20px 0;
+}
+
+/* Estilo do botão de login */
+.intro-button {
+  width: 100%;
+  max-width: 300px;
+  height: 50px;
+  --background: #FF8902; /* Azul */
+  --color: #ffffff; /* Branco */
+  --border-radius: 8px;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.intro-button:hover {
+  --background: #f7aa53; /* Azul mais escuro */
+}
+
+/* Estilo do texto para cadastro */
+.signup-text {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #6c757d; /* Cinza intermediário */
+}
+
+.signup-text .blue-text {
+  color: #FF8902; /* Azul */
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.signup-text .blue-text:hover {
+  color: #f7aa53; /* Azul mais escuro */
+}

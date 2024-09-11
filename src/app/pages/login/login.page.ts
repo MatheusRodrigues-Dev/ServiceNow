@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
   }
 
   voltar() {
-    // Lógica para voltar à tela anterior ou qualquer outra ação
+    this.router.navigate(['/intro']); // Redireciona para a página de registro
   }
 
   input(campo: string, event: any) {

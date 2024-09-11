@@ -95,6 +95,6 @@ export class RegisterPage implements OnInit {
 
   // Função para voltar à página anterior (login)
   voltar() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/intro']);
   }
 }
