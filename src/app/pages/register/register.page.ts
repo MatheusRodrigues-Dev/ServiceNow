@@ -52,8 +52,6 @@ export class RegisterPage implements OnInit {
     await alert.present();
   }
 
-
-
   // Função para lidar com a entrada de dados
   input(campo: string, event: any) {
     const valor = event.target.value;
@@ -73,24 +71,6 @@ export class RegisterPage implements OnInit {
   // Função para alternar a visibilidade da password
   alternarVisibilidadepassword() {
     this.mostrarpassword = !this.mostrarpassword;
-  }
-
-  // Função para registrar o usuário
-  registrarUsuario() {
-    if (this.name && this.email && this.password) {
-      // Aqui você pode adicionar lógica para enviar os dados para o servidor
-      // e tratar o resultado
-
-      console.log('name:', this.name);
-      console.log('Email:', this.email);
-      console.log('password:', this.password);
-
-      // Após o registro bem-sucedido, redirecionar para a página de login ou outra página
-      this.router.navigate(['/login']);
-    } else {
-      // Exemplo de validação básica
-      alert('Por favor, preencha todos os campos.');
-    }
   }
 
   // Função para voltar à página anterior (login)

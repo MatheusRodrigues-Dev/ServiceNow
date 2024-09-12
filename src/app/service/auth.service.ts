@@ -25,11 +25,16 @@ export class AuthService {
           this.router.navigate(['/tabs']);
         }),
         catchError(error => {
-          let errorMessage = 'Ocorreu um erro durante o login. Tente novamente mais tarde.';
-          if (error.error && error.error.message) {
+          let errorMessage = '';
+          if (error.error.errors.email) {
             // Se a resposta da API contém uma mensagem de erro
-            errorMessage = error.error.message;
+            errorMessage = error.error.errors.email;
+          } else if (error.error.errors.password) {
+            errorMessage = error.error.errors.password;
+          } else {
+            errorMessage = 'Ocorreu um erro durante o login. Tente novamente mais tarde.';
           }
+
           console.error('Erro no login:', error);
           return throwError(() => new Error(errorMessage));
         })
@@ -38,17 +43,23 @@ export class AuthService {
 
   // Função para registro
   register(name: string, email: string, password: string, type: string, status: string): Observable<any> {
-    return this.http.post<{ message: string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
+    return this.http.post<{token: string , message: string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
       .pipe(
         tap(response => {
           console.log('Registro realizado:', response.message); // Imprime mensagem de sucesso no console
+          console.log('Token recebido:', response.token); // Imprime o token no console
+          localStorage.setItem('token', response.token);
+          this.currentUserSubject.next(response.token);
+          this.router.navigate(['/tabs']);
         }),
         catchError(error => {
-          let errorMessage = 'Ocorreu um erro durante o registro. Tente novamente mais tarde.';
-          if (error.error && error.error.message) {
-            // Se a resposta da API contém uma mensagem de erro
-            errorMessage = error.error.message;
-          }
+          let errorMessage = '';
+          if (error.error.errors.name) { errorMessage = error.error.errors.name; }
+          else if (error.error.errors.email) { errorMessage = error.error.errors.email; }
+          else if (error.error.errors.password) { errorMessage = error.error.errors.password; }
+          else if (error.error.errors.type) { errorMessage = error.error.errors.type; }
+          else if (error.error.errors.status) { errorMessage = error.error.errors.status; }
+          else { errorMessage = 'Ocorreu um erro durante o login. Tente novamente mais tarde.'; }
           console.error('Erro no registro:', error);
           return throwError(() => new Error(errorMessage));
         })
