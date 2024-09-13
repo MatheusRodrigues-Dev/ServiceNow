@@ -1,1 +1,103 @@
+/* Estilo para o cabeçalho */
+ion-header {
+  --background: #FF8902; /* Cor de fundo do cabeçalho */
+  --color: #ffffff; /* Cor do texto no cabeçalho */
+}
 
+/* Estilo para a toolbar */
+ion-toolbar {
+  --background: #FF8902; /* Cor de fundo da toolbar */
+  --color: #ffffff; /* Cor do texto na toolbar */
+  padding: 0 16px; /* Espaçamento interno da toolbar */
+}
+
+/* Estilo para o título */
+ion-title {
+  font-size: 20px; /* Tamanho da fonte do título */
+  font-weight: bold; /* Peso da fonte do título */
+  text-align: center; /* Centraliza o texto do título */
+  flex: 1; /* Ocupa o máximo de espaço disponível */
+}
+
+/* Estilo para os botões na extremidade direita */
+ion-buttons[slot="end"] {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo para os botões */
+ion-button {
+  --background: transparent; /* Fundo transparente para os botões */
+  --color: #ffffff; /* Cor dos ícones nos botões */
+  margin-left: 8px; /* Espaço entre os botões */
+}
+
+/* Estilo para os ícones */
+ion-icon {
+  font-size: 24px; /* Tamanho dos ícones */
+}
+
+/* Estilo dos ícones ao passar o mouse */
+ion-button:hover ion-icon {
+  color: #ffffff; /* Cor do ícone ao passar o mouse */
+}
+
+/* Estilo para a barra de abas personalizada */
+.custom-tab-bar {
+  --background: #ffffff; /* Fundo branco */
+  --color: #333333; /* Cor do texto das abas */
+  --color-selected: #FF8902; /* Cor do texto da aba selecionada */
+  --color-icon: #333333; /* Cor do ícone */
+  --color-icon-selected: #FF8902; /* Cor do ícone da aba selecionada */
+
+  ion-tab-bar {
+    height: 80px; /* Ajusta a altura da barra de abas */
+    --padding-bottom: 10px; /* Adiciona espaço abaixo da barra de abas */
+  }
+
+  ion-tab-button {
+    --padding: 0; /* Remove padding padrão */
+    --background: #f0f0f0; /* Fundo das abas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%; /* Garante que o botão ocupe toda a largura disponível */
+
+    .tab-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; /* Garante que o conteúdo ocupe toda a largura disponível */
+    }
+
+    .tab-icon {
+      font-size: 24px; /* Tamanho do ícone */
+      color: var(--color-icon); /* Cor do ícone padrão */
+      transition: color 0.3s ease, font-size 0.3s ease; /* Transição suave para cor e tamanho do ícone */
+    }
+
+    .tab-label {
+      font-size: 16px; /* Tamanho da fonte do texto */
+      font-weight: bold;
+      color: var(--color-icon); /* Cor do texto padrão */
+      margin-left: 8px; /* Espaço entre o ícone e o texto */
+      white-space: nowrap; /* Impede quebra de linha */
+      opacity: 0; /* Inicialmente oculto */
+      transition: opacity 0.3s ease, transform 0.3s ease; /* Transição suave para visibilidade e posição */
+      text-align: center; /* Alinha o texto no centro */
+    }
+
+    &.tab-selected {
+      --background: #ffffff; /* Fundo da aba selecionada */
+      .tab-icon {
+        color: var(--color-icon-selected); /* Cor do ícone da aba selecionada */
+        font-size: 30px; /* Aumenta o ícone quando a aba é selecionada */
+      }
+      .tab-label {
+        opacity: 1; /* Torna o texto visível */
+        transform: translateX(0); /* Move o texto para a posição original */
+      }
+    }
+  }
+}
