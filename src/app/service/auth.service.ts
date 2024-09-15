@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, throwError, Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators'; // Importação do operador tap
 import { Router } from '@angular/router';
@@ -16,11 +16,13 @@ export class AuthService {
 
   // Função para login
   login(email: string, password: string): Observable<any> {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { email, password })
+    return this.http.post<{ token: string, role: string }>(`${this.apiUrl}/login`, { email, password })
       .pipe(
         tap(response => {
           console.log('Token recebido:', response.token); // Imprime o token no console
+          console.log('Role recebido:', response.role); // Imprime o token no console
           localStorage.setItem('token', response.token);
+          localStorage.setItem('role', response.role);
           this.currentUserSubject.next(response.token);
           this.router.navigate(['/tabs']);
         }),
@@ -43,12 +45,14 @@ export class AuthService {
 
   // Função para registro
   register(name: string, email: string, password: string, type: string, status: string): Observable<any> {
-    return this.http.post<{token: string , message: string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
+    return this.http.post<{ token: string, message: string, role: string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
       .pipe(
         tap(response => {
           console.log('Registro realizado:', response.message); // Imprime mensagem de sucesso no console
           console.log('Token recebido:', response.token); // Imprime o token no console
           localStorage.setItem('token', response.token);
+          console.log('Role recebido:', response.role); // Imprime o token no console
+          localStorage.setItem('role', response.role);
           this.currentUserSubject.next(response.token);
           this.router.navigate(['/tabs']);
         }),
@@ -71,10 +75,28 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  // Função para deslogar o usuário
   logout() {
-    localStorage.removeItem('token');
-    this.currentUserSubject.next(null);
-    this.router.navigate(['/login']);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.post<{message: string}>(`${this.apiUrl}/logout`, {}, { headers }) // Note que o corpo da requisição é um objeto vazio {}
+      .pipe(
+        tap((response) => {
+          console.log('Logout realizado:', response.message); // Imprime mensagem de sucesso no console
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+          this.currentUserSubject.next(null);
+          this.router.navigate(['/intro']);
+        }),
+        catchError(error => {
+          console.error('Erro no logout:', error);
+          return throwError(() => new Error('Ocorreu um erro durante o logout. Tente novamente mais tarde.'));
+        })
+      ).subscribe();
   }
+
 }
