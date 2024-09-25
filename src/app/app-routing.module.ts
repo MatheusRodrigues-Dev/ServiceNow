@@ -24,7 +24,11 @@ const routes: Routes = [
   {
     path: 'intro',
     loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule)
+  },  {
+    path: 'codigoemail',
+    loadChildren: () => import('./pages/codigoemail/codigoemail.module').then( m => m.CodigoemailPageModule)
   }
+
 ];
 
 @NgModule({

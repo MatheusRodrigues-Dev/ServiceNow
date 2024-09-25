@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/service/auth.service';
+import { LoadingController } from '@ionic/angular'; // <--- Add this line
 
 @Component({
   selector: 'app-register',
@@ -13,20 +14,34 @@ export class RegisterPage implements OnInit {
   email: string = '';
   password: string = '';
   type: string = 'cliente';
-  status: string = 'pendente';
+  status: string = 'ativo';
   mostrarpassword: boolean = false;
+  isLoading: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService, private alertController: AlertController) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private alertController: AlertController,
+    private loadingController: LoadingController // <--- Add this line
+  ) { }
 
   ngOnInit() {
   }
 
   async registerUser() {
     try {
-      await this.authService.register(this.name, this.email, this.password, this.type, this.status).toPromise();
-      // Sucesso no registro, pode adicionar lógica adicional aqui
-      console.log('Registro bem-sucedido!');
-      this.router.navigate(['/tabs']);
+      const loading = await this.loadingController.create({
+        message: 'Registrando...',
+        spinner: 'crescent'
+      });
+      await loading.present();
+
+      this.authService.register(this.name, this.email, this.password, this.type, this.status).toPromise().then(() => {
+        loading.dismiss();
+        // Sucesso no registro, pode adicionar lógica adicional aqui
+        console.log('Registro bem-sucedido!');
+        this.router.navigate(['/codigoemail']);
+      });
     } catch (error) {
       // Exibir mensagem de erro
       const errorMessage = this.getErrorMessage(error);

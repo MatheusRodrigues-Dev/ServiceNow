@@ -45,7 +45,7 @@ export class AuthService {
 
   // Função para registro
   register(name: string, email: string, password: string, type: string, status: string): Observable<any> {
-    return this.http.post<{ token: string, message: string, role: string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
+    return this.http.post<{ token: string, message: string, role: string, code:string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
       .pipe(
         tap(response => {
           console.log('Registro realizado:', response.message); // Imprime mensagem de sucesso no console
@@ -53,8 +53,12 @@ export class AuthService {
           localStorage.setItem('token', response.token);
           console.log('Role recebido:', response.role); // Imprime o token no console
           localStorage.setItem('role', response.role);
+          console.log('Code recebido:', response.code); // Imprime o token no console
+          localStorage.setItem('code', response.code);
+          console.log('email recebido:', email); // Imprime o token no console
+          localStorage.setItem('email', email);
           this.currentUserSubject.next(response.token);
-          this.router.navigate(['/tabs']);
+          this.router.navigate(['/codigoemail']);
         }),
         catchError(error => {
           let errorMessage = '';
@@ -66,6 +70,24 @@ export class AuthService {
           else { errorMessage = 'Ocorreu um erro durante o login. Tente novamente mais tarde.'; }
           console.error('Erro no registro:', error);
           return throwError(() => new Error(errorMessage));
+        })
+      );
+  }
+
+  verifyCode(code: string): Observable<any> {
+    // Recuperar o código e o email do localStorage
+    const email = localStorage.getItem('email');
+
+    // Enviar o código e o email para a API
+    return this.http.post<{ message: string }>(`${this.apiUrl}/send-email`, { email, code })
+      .pipe(
+        tap((response) => {
+          console.log('Código verificado:', response.message); // Imprime mensagem de sucesso no console
+          // Add any additional success handling logic here
+        }),
+        catchError(error => {
+          console.error('Erro ao verificar código:', error);
+          return throwError(() => new Error('Ocorreu um erro durante a verificação do código. Tente novamente mais tarde.'));
         })
       );
   }

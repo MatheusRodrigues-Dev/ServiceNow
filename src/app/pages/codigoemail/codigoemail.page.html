@@ -1,0 +1,15 @@
+<ion-content class="fixed-content" [scrollY]="false" scroll-y="false">
+  <ion-icon (click)="voltar()" class="back" name="arrow-back"></ion-icon>
+  <div class="content">
+    <div class="header">
+      <ion-img src="../../../assets/image/logo.svg" style="width: 240px; height: 240px;"></ion-img>
+      <h1 class="title">Verificar Código</h1>
+    </div>
+
+    <form (ngSubmit)="verifyCode()" #verifyForm="ngForm">
+      <ion-input class="input" [(ngModel)]="code" name="code" label="Código..." labelPlacement="floating" fill="outline" mode="md"></ion-input>
+
+      <ion-button expand="full" type="submit" class="submit-button">Verificar</ion-button>
+    </form>
+  </div>
+</ion-content>
