@@ -1,0 +1,62 @@
+.fixed-content {
+  --background: #f0f0f0; /* Fundo cinza claro */
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.welcome-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #FF8902; /* Laranja */
+}
+
+ion-item {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+ion-label {
+  font-weight: bold;
+  color: #333; /* Cor cinza escuro para os rótulos */
+}
+
+ion-input,
+ion-select,
+ion-textarea {
+  --background: #fff; /* Fundo branco para os campos */
+  --padding-start: 10px;
+  border-radius: 8px; /* Borda arredondada */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+ion-input::placeholder,
+ion-select::placeholder,
+ion-textarea::placeholder {
+  color: #999; /* Cor cinza para o placeholder */
+}
+
+ion-select {
+  --padding-start: 0;
+}
+
+.select-service-button {
+  width: 100%;
+  margin-top: 20px;
+  --background: #FF8902; /* Cor de fundo laranja */
+  --color: #000; /* Texto preto */
+  --border-radius: 8px; /* Borda arredondada */
+  --padding: 10px; /* Espaçamento interno */
+  font-size: 16px;
+}
+
+.select-service-button:hover {
+  --background: #f9a825; /* Cor de hover amarelo mais escuro */
+}

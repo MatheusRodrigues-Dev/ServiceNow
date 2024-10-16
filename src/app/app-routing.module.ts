@@ -27,6 +27,10 @@ const routes: Routes = [
   },  {
     path: 'codigoemail',
     loadChildren: () => import('./pages/codigoemail/codigoemail.module').then( m => m.CodigoemailPageModule)
+  },
+  {
+    path: 'solicitacao-page',
+    loadChildren: () => import('./SolicitacaoService/solicitacao-page/solicitacao-page.module').then( m => m.SolicitacaoPagePageModule)
   }
 
 ];
