@@ -29,25 +29,31 @@ export class RegisterPage implements OnInit {
   }
 
   async registerUser() {
+    const loading = await this.loadingController.create({
+      message: 'Registrando...',
+      spinner: 'crescent'
+    });
+
     try {
-      const loading = await this.loadingController.create({
-        message: 'Registrando...',
-        spinner: 'crescent'
-      });
       await loading.present();
 
-      this.authService.register(this.name, this.email, this.password, this.type, this.status).toPromise().then(() => {
-        loading.dismiss();
-        // Sucesso no registro, pode adicionar lógica adicional aqui
-        console.log('Registro bem-sucedido!');
-        this.router.navigate(['/codigoemail']);
-      });
+      await this.authService.register(this.name, this.email, this.password, this.type, this.status).toPromise();
+
+      // Sucesso no registro, pode adicionar lógica adicional aqui
+      console.log('Registro bem-sucedido!');
+      this.router.navigate(['/codigoemail']);
+
     } catch (error) {
       // Exibir mensagem de erro
       const errorMessage = this.getErrorMessage(error);
       this.showErrorAlert(errorMessage);
+
+    } finally {
+      // Garantir que o loading será sempre fechado
+      loading.dismiss();
     }
   }
+
 
   getErrorMessage(error: unknown): string {
     if (error instanceof Error) {

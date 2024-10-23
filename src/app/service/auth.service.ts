@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://127.0.0.1:8000/api'; // Altere para a URL da sua API
+  private apiUrl = 'https://teste.smartsensordesign.com/public/api'; // Altere para a URL da sua API
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient, private router: Router) { }
