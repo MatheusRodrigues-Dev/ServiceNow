@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Para qual dia?</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Título principal -->
+  <ion-icon (click)="voltar()" class="back" name="arrow-back"> </ion-icon>
+  <h2 class="title">Para qual dia?</h2>
+
+  <!-- Seção de hora -->
+  <div class="hour-section">
+    <p class="label">Hora</p>
+    <ion-datetime
+      display-format="HH:mm A"
+      picker-format="h:mm A"
+      placeholder="Selecione a hora">
+    </ion-datetime>
+  </div>
+
+  <!-- Botão Continuar -->
+  <ion-button expand="block" color="warning" class="continue-button">
+    Continuar
+  </ion-button>
+</ion-content>

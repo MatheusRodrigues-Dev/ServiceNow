@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Cliente
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-tabs class="custom-tab-bar">
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="paginainicial" href="/cliente/paginainicial">
+      <div class="tab-content">
+        <ion-icon name="home-outline" class="tab-icon"></ion-icon>
+        <ion-label class="tab-label">Home</ion-label>
+      </div>
+    </ion-tab-button>
+
+    <ion-tab-button tab="solicitacoes-servico" href="/cliente/solicitacoes-servico">
+      <div class="tab-content">
+        <ion-icon name="ellipse" class="tab-icon"></ion-icon>
+        <ion-label class="tab-label">Tab 2</ion-label>
+      </div>
+    </ion-tab-button>
+
+    <ion-tab-button tab="avaliacao-servico" href="/cliente/avaliacao-servico">
+      <div class="tab-content">
+        <ion-icon name="square" class="tab-icon"></ion-icon>
+        <ion-label class="tab-label">Tab 3</ion-label>
+      </div>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

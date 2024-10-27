@@ -9,8 +9,10 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://teste.smartsensordesign.com/public/api'; // Altere para a URL da sua API
+  // private apiUrl = 'https://teste.smartsensordesign.com/public/api'; // Altere para a URL da sua API
+  private apiUrl = 'http://127.0.0.1:8000/api'; // Altere para a URL da sua API
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public servicos: any[] = [];
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -19,12 +21,22 @@ export class AuthService {
     return this.http.post<{ token: string, role: string }>(`${this.apiUrl}/login`, { email, password })
       .pipe(
         tap(response => {
+          const role = response.role; // Supondo que o role venha nessa propriedade
           console.log('Token recebido:', response.token); // Imprime o token no console
           console.log('Role recebido:', response.role); // Imprime o token no console
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
           this.currentUserSubject.next(response.token);
-          this.router.navigate(['/tabs']);
+          // this.router.navigate(['/tabs']);
+
+          if (role === 'cliente') {
+            this.router.navigate(['/cliente']);  // Redireciona para a página do cliente
+          } else if (role === 'prestador') {
+            this.router.navigate(['/prestador']);  // Redireciona para a página do prestador
+          } else {
+            // Lida com outros casos, se necessário
+            console.log('Role não reconhecido');
+          }
         }),
         catchError(error => {
           let errorMessage = '';
@@ -45,7 +57,7 @@ export class AuthService {
 
   // Função para registro
   register(name: string, email: string, password: string, type: string, status: string): Observable<any> {
-    return this.http.post<{ token: string, message: string, role: string, code:string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
+    return this.http.post<{ token: string, message: string, role: string, code: string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
       .pipe(
         tap(response => {
           console.log('Registro realizado:', response.message); // Imprime mensagem de sucesso no console
@@ -105,7 +117,7 @@ export class AuthService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.post<{message: string}>(`${this.apiUrl}/logout`, {}, { headers }) // Note que o corpo da requisição é um objeto vazio {}
+    return this.http.post<{ message: string }>(`${this.apiUrl}/logout`, {}, { headers }) // Note que o corpo da requisição é um objeto vazio {}
       .pipe(
         tap((response) => {
           console.log('Logout realizado:', response.message); // Imprime mensagem de sucesso no console
@@ -119,6 +131,42 @@ export class AuthService {
           return throwError(() => new Error('Ocorreu um erro durante o logout. Tente novamente mais tarde.'));
         })
       ).subscribe();
+  }
+
+  loadServicos(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const userType = localStorage.getItem('role');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}/lista-servicos`, { headers }).pipe(
+      tap((data) => {
+        this.servicos = data;
+        console.log('Serviços carregados com sucesso:', this.servicos.length);
+
+        // Redireciona baseado no tipo de usuário
+        if (userType === 'cliente') {
+          this.router.navigate(['/cliente/solicitacoes-servico']);
+        }
+      }),
+      catchError(error => {
+        console.error('Erro ao carregar serviços:', error);
+        if (error.status === 401) {
+          // Redireciona baseado no tipo de usuário
+          if (userType === 'cliente') {
+            this.router.navigate(['/cliente/solicitacoes-servico']);
+          }
+        }
+        return throwError(() => new Error('Ocorreu um erro ao carregar os serviços. Tente novamente mais tarde.'));
+      })
+    );
+  }
+
+  getServicos() {
+    return this.servicos; // Método para acessar os serviços carregados
   }
 
 }

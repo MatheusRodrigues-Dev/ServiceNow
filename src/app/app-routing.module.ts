@@ -24,15 +24,21 @@ const routes: Routes = [
   {
     path: 'intro',
     loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule)
-  },  {
+  },
+  {
     path: 'codigoemail',
     loadChildren: () => import('./pages/codigoemail/codigoemail.module').then( m => m.CodigoemailPageModule)
   },
   {
-    path: 'solicitacao-page',
-    loadChildren: () => import('./SolicitacaoService/solicitacao-page/solicitacao-page.module').then( m => m.SolicitacaoPagePageModule)
-  }
-
+    path: 'cliente',
+    loadChildren: () => import('./UserCliente/cliente/cliente.module').then( m => m.ClientePageModule),
+    canActivate:  [AuthGuard]
+  },
+  {
+    path: 'prestador',
+    loadChildren: () => import('./UserPrestador/prestador/prestador.module').then( m => m.PrestadorPageModule),
+    canActivate:  [AuthGuard]
+  },
 ];
 
 @NgModule({
