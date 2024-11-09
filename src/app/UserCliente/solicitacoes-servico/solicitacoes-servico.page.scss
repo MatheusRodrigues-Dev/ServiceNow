@@ -114,6 +114,7 @@ ion-textarea {
 ion-item{
   --background:#f0f0f0;
   margin-bottom: 100px;
+  margin-top: 50px;
   color: #333333;
 }
 
@@ -125,13 +126,13 @@ ion-label {
 }
 
 .custom-select {
-  --background: #ffffff; // Fundo branco
-  --color: #ffffff; // Texto branco
-  --placeholder-color: #ffffff; // Cor do texto do placeholder
+  --background: #f0f0f0; // Fundo branco
+  --color: #f0f0f0; // Texto branco
+  --placeholder-color: #f0f0f0; // Cor do texto do placeholder
 
   // Estilo para as opções do select
   ion-select-option {
-    --background: #ffffff; // Fundo das opções
+    --background: #f0f0f0; // Fundo das opções
     --color: #333333; // Texto das opções (preto ou outra cor que desejar)
   }
 

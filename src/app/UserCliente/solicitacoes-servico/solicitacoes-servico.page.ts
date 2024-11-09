@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -13,8 +14,12 @@ export class SolicitacoesServicoPage implements OnInit {
   selectedServico: any; // Para armazenar o serviço selecionado
   selectedPrioridade: string = ''; // Inicializando com uma string vazia
   descricao: string = ''; // Inicializando com uma string vazia
-  
-  constructor(private router: Router, private serviceService: AuthService) { }
+
+  constructor(
+    private router: Router,
+    private serviceService: AuthService,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
     this.serviceService.loadServicos().subscribe(
@@ -28,14 +33,27 @@ export class SolicitacoesServicoPage implements OnInit {
     );
   }
 
-  continuar() {
-    // Crie um objeto com os dados que deseja passar
+  async continuar() {
+    if (!this.selectedServico || !this.selectedPrioridade || !this.descricao.trim()) {
+      // Exibir mensagem de erro se algum campo estiver vazio
+      const alert = await this.alertController.create({
+        header: 'Campos obrigatórios',
+        message: 'Por favor, preencha todos os campos antes de continuar.',
+        buttons: ['OK'],
+      });
+      await alert.present();
+      return;
+    }
+
+    // Continue se todos os campos estiverem preenchidos
     const dados = {
       servico: this.selectedServico,
       prioridade: this.selectedPrioridade,
       descricao: this.descricao,
     };
 
+    console.log('Dados enviados:', dados);
+    // Navegar para a próxima página ou salvar os dados conforme necessário
     // Navegue para a próxima página, passando os dados como parâmetros
     this.router.navigate(['cliente/solicitacao-data'], { state: { dados } });
   }

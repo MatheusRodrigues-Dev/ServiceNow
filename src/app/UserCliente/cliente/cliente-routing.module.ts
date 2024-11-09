@@ -25,6 +25,10 @@ const routes: Routes = [
         loadChildren: () => import('../solicitacao-data/solicitacao-data.module').then( m => m.SolicitacaoDataPageModule)
       },
       {
+        path: 'disponibilidade-servico',
+        loadChildren: () => import('../disponibilidade-servico/disponibilidade-servico.module').then( m => m.DisponibilidadeServicoPageModule)
+      },
+      {
         path: '',
         redirectTo: '/cliente/paginainicial',
         pathMatch: 'full'
