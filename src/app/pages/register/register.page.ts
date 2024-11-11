@@ -13,7 +13,7 @@ export class RegisterPage implements OnInit {
   name: string = '';
   email: string = '';
   password: string = '';
-  type: string = 'cliente';
+  type: string = '';
   status: string = 'ativo';
   mostrarpassword: boolean = false;
   isLoading: boolean = false;

@@ -1,13 +1,60 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>disponibilidade-servico</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Disponibilidade de Serviço</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">disponibilidade-servico</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <h2 class="title">Cadastro de Serviço</h2>
+  <ion-item>
+    <ion-label>Serviço</ion-label>
+    <ion-select
+      interface="popover"
+      class="custom-select"
+      [(ngModel)]="selectedServico"
+    >
+      <ion-select-option *ngFor="let servico of servicos" [value]="servico">
+        {{ servico.nome }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <h2 class="title">Para qual dia?</h2>
+
+  <!-- Seção de hora -->
+  <div class="hour-section">
+    <ion-datetime
+      display-format="YYYY-MM-DD HH:mm"
+      picker-format="YYYY-MM-DD HH:mm"
+      placeholder="Selecione a hora"
+      (ionChange)="onDateTimeChange($event)">
+    </ion-datetime>
+  </div>
+
+  <!-- Tipo de Prioridade -->
+  <div class="section">
+    <p class="label">Tipo de Prioridade</p>
+    <div class="button-group">
+      <ion-button
+        expand="block"
+        color="danger"
+        (click)="selectedPrioridade = 'disponivel'"
+        >disponivel</ion-button
+      >
+      <ion-button
+        expand="block"
+        color="warning"
+        (click)="selectedPrioridade = 'indisponivel'"
+        >indisponivel</ion-button
+      >
+    </div>
+  </div>
+
+  <!-- Botão Continuar -->
+  <ion-button expand="block" (click)="continuar()" class="continue-button"
+    >Continuar</ion-button
+  >
 </ion-content>

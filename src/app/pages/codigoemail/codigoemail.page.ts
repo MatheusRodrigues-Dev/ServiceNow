@@ -24,13 +24,23 @@ export class CodigoemailPage implements OnInit {
   }
 
   async verifyCode() {
-
     try {
       const response = await this.authService.verifyCode(this.code).toPromise();
       // console.log(response.message)
       if (response.message) {
         await this.presentToast('Código verificado com sucesso!', 'success');
-        this.router.navigate(['/tabs']); // Redirecionar para a próxima página
+
+        // Navegar com base no role do usuário
+        const role = localStorage.getItem('role');;
+        if (role === 'cliente') {
+          this.router.navigate(['/cliente']);  // Redireciona para a página do cliente
+        } else if (role === 'prestador') {
+          this.router.navigate(['/prestador']);  // Redireciona para a página do prestador
+        } else {
+          console.log('Role não reconhecido');
+          this.router.navigate(['/tabs']); // Caso o role não seja identificado, vai para /tabs
+        }
+
       } else {
         await this.presentToast('Código inválido. Tente novamente.', 'danger');
       }
@@ -38,6 +48,7 @@ export class CodigoemailPage implements OnInit {
       await this.presentToast('Ocorreu um erro ao verificar o código. Tente novamente.', 'danger');
     }
   }
+
 
   // async resendCode() {
   //   try {

@@ -12,7 +12,11 @@
 
   <ion-item>
     <ion-label>Serviço</ion-label>
-    <ion-select interface="popover" class="custom-select" [(ngModel)]="selectedServico">
+    <ion-select
+      interface="popover"
+      class="custom-select"
+      [(ngModel)]="selectedServico"
+    >
       <ion-select-option *ngFor="let servico of servicos" [value]="servico">
         {{ servico.nome }}
       </ion-select-option>
@@ -23,18 +27,39 @@
   <div class="section">
     <p class="label">Tipo de Prioridade</p>
     <div class="button-group">
-      <ion-button expand="block" color="danger" (click)="selectedPrioridade = 'alta'">Alta</ion-button>
-      <ion-button expand="block" color="warning" (click)="selectedPrioridade = 'media'">Média</ion-button>
-      <ion-button expand="block" color="success" (click)="selectedPrioridade = 'baixa'">Baixa</ion-button>
+      <ion-button
+        expand="block"
+        color="danger"
+        (click)="selectedPrioridade = 'alta'"
+        >Alta</ion-button
+      >
+      <ion-button
+        expand="block"
+        color="warning"
+        (click)="selectedPrioridade = 'media'"
+        >Média</ion-button
+      >
+      <ion-button
+        expand="block"
+        color="success"
+        (click)="selectedPrioridade = 'baixa'"
+        >Baixa</ion-button
+      >
     </div>
   </div>
 
   <!-- Breve Descrição -->
   <div class="section">
     <p class="label">Breve Descrição</p>
-    <ion-textarea placeholder="Descrição..." class="description-textarea" [(ngModel)]="descricao"></ion-textarea>
+    <ion-textarea
+      placeholder="Descrição..."
+      class="description-textarea"
+      [(ngModel)]="descricao"
+    ></ion-textarea>
   </div>
 
   <!-- Botão Continuar -->
-  <ion-button expand="block" (click)="continuar()" class="continue-button">Continuar</ion-button>
+  <ion-button expand="block" (click)="continuar()" class="continue-button"
+    >Continuar</ion-button
+  >
 </ion-content>

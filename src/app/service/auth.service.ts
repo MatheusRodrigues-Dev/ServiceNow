@@ -9,8 +9,8 @@ import { Router, NavigationExtras } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  //private apiUrl = 'https://teste.smartsensordesign.com/api'; // Altere para a URL da sua API
-  private apiUrl = 'http://127.0.0.1:8000/api'; // Altere para a URL da sua API
+  private apiUrl = 'https://teste.smartsensordesign.com/api'; // Altere para a URL da sua API
+  // private apiUrl = 'http://127.0.0.1:8000/api'; // Altere para a URL da sua API
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public servicos: any[] = [];
 
@@ -152,6 +152,8 @@ export class AuthService {
         // Redireciona baseado no tipo de usuário
         if (userType === 'cliente') {
           this.router.navigate(['/cliente/solicitacoes-servico']);
+        } else if (userType === 'prestador') {
+          this.router.navigate(['/prestador/disponibilidade-servico']);  // Redireciona para a página do prestador
         }
       }),
       catchError(error => {
@@ -160,6 +162,8 @@ export class AuthService {
           // Redireciona baseado no tipo de usuário
           if (userType === 'cliente') {
             this.router.navigate(['/cliente/solicitacoes-servico']);
+          } else if (userType === 'prestador') {
+            this.router.navigate(['/prestador/disponibilidade-servico']);  // Redireciona para a página do prestador
           }
         }
         return throwError(() => new Error('Ocorreu um erro ao carregar os serviços. Tente novamente mais tarde.'));
@@ -253,6 +257,52 @@ export class AuthService {
 
         // Navega para a página inicial
         this.router.navigate(['/cliente/paginainicial']);
+      }),
+      catchError(error => {
+        console.error('Erro ao registrar serviço:', error);
+        if (error.status === 401) {
+          // Lógica de redirecionamento para usuários não autorizados
+        }
+        return throwError(() => new Error('Erro ao registrar serviço'));
+      })
+    );
+  }
+
+  registerDisponibilidadeServico(
+    data: string,
+    servico_id: number,
+    status: string,
+  ): Observable<any> {
+    const token = localStorage.getItem('token');
+    const userID = localStorage.getItem('id');
+
+    if (!token || !userID) {
+      console.error('Token ou userID está faltando.');
+      return throwError(() => new Error('Token ou ID do usuário ausente'));
+    }
+
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    const requestBody = {
+      prestador_id: Number(userID),
+      status: status,
+      data: data,
+      servico_id: servico_id,
+    };
+
+    return this.http.post<any>(`${this.apiUrl}/disponibilidade-servicos`, requestBody, { headers }).pipe(
+      tap((response) => {
+        console.log('Response:', response);
+
+        // Armazena a mensagem de sucesso no localStorage
+        localStorage.setItem('successMessage', 'Serviço registrado com sucesso!');
+
+        // Navega para a página inicial
+        this.router.navigate(['/prestador/paginainicial']);
       }),
       catchError(error => {
         console.error('Erro ao registrar serviço:', error);

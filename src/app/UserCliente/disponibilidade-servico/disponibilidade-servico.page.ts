@@ -63,7 +63,7 @@ export class DisponibilidadeServicoPage implements OnInit {
 
       await this.serviceService.registerService(
         prestadorEmail,
-        2, // Passa o e-mail do prestador para a função,
+        this.dados.servico['id'], // Passa o e-mail do prestador para a função,
         this.dados.descricao,
         this.status,
         this.selectedDateTime,
