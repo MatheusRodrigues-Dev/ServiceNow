@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, throwError, Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators'; // Importação do operador tap
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://teste.smartsensordesign.com/api'; // Altere para a URL da sua API
-  // private apiUrl = 'http://127.0.0.1:8000/api'; // Altere para a URL da sua API
+  //private apiUrl = 'https://teste.smartsensordesign.com/api'; // Altere para a URL da sua API
+  private apiUrl = 'http://127.0.0.1:8000/api'; // Altere para a URL da sua API
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public servicos: any[] = [];
 
@@ -18,14 +18,16 @@ export class AuthService {
 
   // Função para login
   login(email: string, password: string): Observable<any> {
-    return this.http.post<{ token: string, role: string }>(`${this.apiUrl}/login`, { email, password })
+    return this.http.post<{ token: string, role: string, user_id: string }>(`${this.apiUrl}/login`, { email, password })
       .pipe(
         tap(response => {
           const role = response.role; // Supondo que o role venha nessa propriedade
           console.log('Token recebido:', response.token); // Imprime o token no console
           console.log('Role recebido:', response.role); // Imprime o token no console
+          console.log('Role recebido:', response.user_id); // Imprime o token no console
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
+          localStorage.setItem('id', response.user_id);
           this.currentUserSubject.next(response.token);
           // this.router.navigate(['/tabs']);
 
@@ -165,8 +167,101 @@ export class AuthService {
     );
   }
 
+  loadPrestadores(selectedDateTime: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const userType = localStorage.getItem('role');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    const requestBody = { data_hora: selectedDateTime }; // Corpo da requisição com a data selecionada
+    console.log(requestBody);
+
+    return this.http.post<{ success: string; message: string; prestadores: any[]; }>(
+      `${this.apiUrl}/listar-disponibilidade`,
+      requestBody,
+      { headers }
+    ).pipe(
+      tap((response) => {
+        const prestadores = response.prestadores;
+        console.log('Prestadores:', prestadores);
+
+        // Redireciona baseado no tipo de usuário
+        if (userType === 'cliente') {
+          this.router.navigate(['/cliente/disponibilidade-servico']);
+        }
+      }),
+      catchError(error => {
+        console.error('Erro ao carregar prestadoes:', error);
+        if (error.status === 401) {
+          // Redireciona baseado no tipo de usuário
+          if (userType === 'cliente') {
+            this.router.navigate(['/cliente/disponibilidade-servico']);
+          }
+        }
+        return throwError(() => new Error('Ocorreu um erro ao carregar os prestadores. Tente novamente mais tarde.'));
+      })
+    );
+  }
+
   getServicos() {
     return this.servicos; // Método para acessar os serviços carregados
+  }
+
+  registerService(
+    prestadorID: string,
+    servicoId: number,
+    descricao: string,
+    status: string,
+    data_esperada: string,
+    disponibilidade_id: number,
+    prioridade: string,
+  ): Observable<any> {
+    const token = localStorage.getItem('token');
+    const userID = localStorage.getItem('id');
+
+    if (!token || !userID) {
+      console.error('Token ou userID está faltando.');
+      return throwError(() => new Error('Token ou ID do usuário ausente'));
+    }
+
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    const requestBody = {
+      cliente_id: Number(userID),
+      prestador_email: prestadorID,
+      servico_id: servicoId,
+      descricao: descricao,
+      status: status,
+      data_esperada: data_esperada,
+      disponibilidade_id: disponibilidade_id,
+      prioridade: prioridade,
+    };
+
+    return this.http.post<any>(`${this.apiUrl}/solicitacoes-servico`, requestBody, { headers }).pipe(
+      tap((response) => {
+        console.log('Response:', response);
+
+        // Armazena a mensagem de sucesso no localStorage
+        localStorage.setItem('successMessage', 'Serviço registrado com sucesso!');
+
+        // Navega para a página inicial
+        this.router.navigate(['/cliente/paginainicial']);
+      }),
+      catchError(error => {
+        console.error('Erro ao registrar serviço:', error);
+        if (error.status === 401) {
+          // Lógica de redirecionamento para usuários não autorizados
+        }
+        return throwError(() => new Error('Erro ao registrar serviço'));
+      })
+    );
   }
 
 }

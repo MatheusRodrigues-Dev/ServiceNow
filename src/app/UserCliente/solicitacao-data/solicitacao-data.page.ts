@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class SolicitacaoDataPage implements OnInit {
   dados: any;
-  selectedDateTime: string =''; // Variável para armazenar a data e hora formatada
+  selectedDateTime: string = ''; // Variável para armazenar a data e hora formatada
 
   constructor(private router: Router) { }
 
@@ -50,6 +50,14 @@ export class SolicitacaoDataPage implements OnInit {
 
   continuar() {
     console.log('Data e hora selecionadas:', this.selectedDateTime);
-    // Aqui, você pode armazenar a data ou usá-la conforme necessário
+
+    // Navega para a página desejada passando todos os dados e a data/hora selecionada
+    this.router.navigate(['cliente/disponibilidade-servico'], {
+      state: {
+        dados: this.dados,          // Passa todos os dados recebidos
+        selectedDateTime: this.selectedDateTime // Passa a data e hora selecionadas
+      }
+    });
   }
+
 }

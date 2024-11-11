@@ -1,0 +1,69 @@
+.content-background {
+  --ion-background-color: #f2f2f2; /* Cor de fundo suave */
+}
+
+.container {
+  padding: 16px;
+  text-align: center;
+}
+
+.prestadores-list {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.prestador-item {
+  --background: transparent;
+  margin-bottom: 8px;
+  padding: 8px;
+}
+
+.prestador-nome {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #333;
+}
+
+ion-avatar img {
+  border-radius: 50%;
+  background-color: #FF8902; /* Fundo cinza claro para o avatar */
+  padding: 4px;
+}
+
+.continue-button {
+  margin-top: 16px;
+  --background: #FF8902; /* Cor de fundo laranja */
+  --background-activated: #e68900; /* Cor ao pressionar o botão */
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+}
+
+
+/* Estilo do título principal */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 30px 0;
+  text-align: center;
+  color: #FF8902;
+}
+
+
+/* Estilo do ícone de voltar */
+.back {
+  font-size: 24px;
+  color: #FF8902; /* Laranja */
+}
+
+
+.prestador-item.selected {
+  --background: #a9d9d1; /* Cor de fundo para itens selecionados */
+  border-radius: 15px;
+}
+
+.prestador-item {
+  cursor: pointer;
+}

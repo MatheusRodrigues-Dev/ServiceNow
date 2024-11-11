@@ -1,13 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>disponibilidade-servico</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Servidores Disponíveis</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">disponibilidade-servico</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="content-background">
+  <ion-icon (click)="voltar()" class="back" name="arrow-back"> </ion-icon>
+  <h2 class="title">Servidores Disponíveis</h2>
+
+  <div class="container">
+    <ion-list class="prestadores-list">
+      <ion-item
+        *ngFor="let prestador of prestadores"
+        [class.selected]="isSelected(prestador.id)"
+        (click)="toggleSelection(prestador.id)"
+        class="prestador-item"
+      >
+        <ion-avatar slot="start">
+          <img src="assets/icon/user-check-icon.svg" alt="Ícone de usuário" />
+        </ion-avatar>
+        <ion-label>
+          <h2 class="prestador-nome">{{ prestador.nome }}</h2>
+          <p>{{ prestador.email}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-button
+      expand="block"
+      color="warning"
+      class="continue-button"
+      (click)="continuar()"
+    >
+      Continuar
+    </ion-button>
+  </div>
 </ion-content>
