@@ -5,9 +5,29 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">paginainicial</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Profile Section -->
+  <div class="profile">
+    <div class="avatar"></div>
+    <div class="provider-name">Prestador {{ userName }}</div>
+  </div>
+
+  <!-- Services Section Title -->
+  <div class="services-title">Seus Serviços</div>
+
+  <!-- Services Cards -->
+  <div class="services">
+    <div class="service-card">
+      <div class="service-name">Pintor</div>
+    </div>
+    <div class="service-card">
+      <div class="service-name">Eletricista</div>
+    </div>
+    <div class="service-card">
+      <div class="service-name">Encanador</div>
+    </div>
+    <div class="service-card">
+      <div class="service-name">Pedreiro</div>
+    </div>
+  </div>
 </ion-content>
+

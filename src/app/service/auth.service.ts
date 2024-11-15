@@ -18,16 +18,18 @@ export class AuthService {
 
   // Função para login
   login(email: string, password: string): Observable<any> {
-    return this.http.post<{ token: string, role: string, user_id: string }>(`${this.apiUrl}/login`, { email, password })
+    return this.http.post<{ token: string, role: string, user_id: string, user_name:string }>(`${this.apiUrl}/login`, { email, password })
       .pipe(
         tap(response => {
           const role = response.role; // Supondo que o role venha nessa propriedade
           console.log('Token recebido:', response.token); // Imprime o token no console
           console.log('Role recebido:', response.role); // Imprime o token no console
           console.log('Role recebido:', response.user_id); // Imprime o token no console
+          console.log('Role recebido:', response.user_name); // Imprime o token no console
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
           localStorage.setItem('id', response.user_id);
+          localStorage.setItem('name', response.user_name);
           this.currentUserSubject.next(response.token);
           // this.router.navigate(['/tabs']);
 
@@ -59,7 +61,7 @@ export class AuthService {
 
   // Função para registro
   register(name: string, email: string, password: string, type: string, status: string): Observable<any> {
-    return this.http.post<{ token: string, message: string, role: string, code: string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
+    return this.http.post<{ token: string, message: string, role: string, code: string, user_name:string }>(`${this.apiUrl}/register`, { name, email, password, type, status })
       .pipe(
         tap(response => {
           console.log('Registro realizado:', response.message); // Imprime mensagem de sucesso no console
@@ -71,6 +73,8 @@ export class AuthService {
           localStorage.setItem('code', response.code);
           console.log('email recebido:', email); // Imprime o token no console
           localStorage.setItem('email', email);
+          console.log('email recebido:', response.user_name); // Imprime o token no console
+          localStorage.setItem('email', response.user_name);
           this.currentUserSubject.next(response.token);
           this.router.navigate(['/codigoemail']);
         }),
@@ -119,12 +123,21 @@ export class AuthService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.post<{ message: string }>(`${this.apiUrl}/logout`, {}, { headers }) // Note que o corpo da requisição é um objeto vazio {}
+    this.http.post<{ message: string }>(`${this.apiUrl}/logout`, {}, { headers }) // Note que o corpo da requisição é um objeto vazio {}
       .pipe(
         tap((response) => {
-          console.log('Logout realizado:', response.message); // Imprime mensagem de sucesso no console
-          localStorage.removeItem('token');
-          localStorage.removeItem('role');
+          console.log('Logout realizado:', response.message);
+
+          // Limpar todos os caches e dados armazenados
+          localStorage.clear(); // Remove todos os dados do localStorage
+          sessionStorage.clear(); // Remove todos os dados do sessionStorage
+          caches.keys().then((cacheNames) => { // Limpa os caches de navegação
+            cacheNames.forEach((cacheName) => {
+              caches.delete(cacheName);
+            });
+          });
+
+          // Atualizar estado do usuário e redirecionar
           this.currentUserSubject.next(null);
           this.router.navigate(['/intro']);
         }),
@@ -134,6 +147,7 @@ export class AuthService {
         })
       ).subscribe();
   }
+
 
   loadServicos(): Observable<any[]> {
     const token = localStorage.getItem('token');
@@ -199,13 +213,17 @@ export class AuthService {
       }),
       catchError(error => {
         console.error('Erro ao carregar prestadoes:', error);
-        if (error.status === 401) {
-          // Redireciona baseado no tipo de usuário
-          if (userType === 'cliente') {
-            this.router.navigate(['/cliente/disponibilidade-servico']);
-          }
+        let errorMessage = '';
+        if (error.error.message) {
+          // Se a resposta da API contém uma mensagem de erro
+          errorMessage = error.error.message;
+        } else {
+          errorMessage = 'Ocorreu um erro durante o carregar os prestadores. Tente novamente mais tarde.';
         }
-        return throwError(() => new Error('Ocorreu um erro ao carregar os prestadores. Tente novamente mais tarde.'));
+
+        console.error('Erro no prestador de serviço:', error);
+        return throwError(() => new Error(errorMessage));
+        // return throwError(() => new Error('Ocorreu um erro ao carregar os prestadores. Tente novamente mais tarde.'));
       })
     );
   }

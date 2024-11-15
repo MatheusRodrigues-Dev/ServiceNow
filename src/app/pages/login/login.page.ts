@@ -84,14 +84,6 @@ export class LoginPage implements OnInit {
     // Lógica para resetar a senha
   }
 
-  continuarComGoogle() {
-    // Lógica para login com Google
-  }
-
-  continuarComFacebook() {
-    // Lógica para login com Facebook
-  }
-
   cadastrar() {
     this.router.navigate(['/register']); // Redireciona para a página de registro
   }

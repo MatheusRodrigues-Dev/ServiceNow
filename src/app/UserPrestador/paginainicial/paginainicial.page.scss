@@ -1,0 +1,62 @@
+.profile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 0;
+  background-color: #e5e5e5;
+
+  .avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-bottom: 10px;
+  }
+
+  .provider-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.services-title {
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 0 20px;
+
+  .service-card {
+    width: 45%;
+    height: 120px;
+    background-color: #ffe4c4;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+
+    .service-name {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    &::after {
+      content: '';
+      width: 100%;
+      height: 20px;
+      background-color: #ff7f00;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      margin-top: auto;
+    }
+  }
+}

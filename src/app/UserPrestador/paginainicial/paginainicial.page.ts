@@ -8,9 +8,11 @@ import { Router, NavigationStart } from '@angular/router';
   styleUrls: ['./paginainicial.page.scss'],
 })
 export class PaginainicialPage implements OnInit {
+  userName: string = '';
+
   constructor(
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -20,6 +22,9 @@ export class PaginainicialPage implements OnInit {
         this.showSuccessMessageIfAvailable();
       }
     });
+
+    const nameUser = localStorage.getItem('name');
+    this.userName = nameUser || 'Usuário'
   }
 
   showSuccessMessageIfAvailable() {

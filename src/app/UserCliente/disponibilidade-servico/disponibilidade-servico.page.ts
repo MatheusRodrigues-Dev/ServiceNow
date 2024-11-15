@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
-import { AlertController } from '@ionic/angular';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, NavController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-disponibilidade-servico',
@@ -19,7 +18,8 @@ export class DisponibilidadeServicoPage implements OnInit {
     private router: Router,
     private serviceService: AuthService,
     private alertController: AlertController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private navCtrl: NavController,
   ) { }
 
   ngOnInit() {
@@ -90,27 +90,45 @@ export class DisponibilidadeServicoPage implements OnInit {
     return 'Ocorreu um erro inesperado.';
   }
 
-  async showErrorAlert(message: string) {
-    const alert = await this.alertController.create({
-      header: 'Erro',
-      message: message,
-      buttons: ['OK'],
-      cssClass: 'custom-alert'
+  // async showErrorAlert(message: string) {
+  //   const alert = await this.alertController.create({
+  //     header: 'Erro',
+  //     message: message,
+  //     buttons: ['OK'],
+  //     cssClass: 'custom-alert'
+  //   });
+
+  //   await alert.present();
+  // }
+
+  async ionViewWillEnter() {
+    const loading = await this.loadingController.create({
+      message: 'Carregando prestadores...',
     });
+    await loading.present(); // Exibe o carregando
 
-    await alert.present();
-  }
-
-  ionViewWillEnter() {
     this.serviceService.loadPrestadores(this.selectedDateTime).subscribe({
-      next: (data) => {
+      next: async (data) => {
         this.prestadores = data.prestadores;
         console.log('Prestadores carregados com sucesso:', this.prestadores);
+        await loading.dismiss(); // Remove o carregando
       },
-      error: (error) => {
+      error: async (error) => {
         console.error('Erro ao carregar prestadores:', error);
+        await loading.dismiss(); // Remove o carregando antes de exibir o erro
+        await this.showErrorAlert(error);
+        this.navCtrl.back(); // Retorna à página anterior
       }
     });
+  }
+
+  async showErrorAlert(error: any) {
+    const alert = await this.alertController.create({
+      header: 'Erro',
+      message: `Falha ao carregar prestadores: ${error.message || 'Erro desconhecido.'}`,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   voltar() {
