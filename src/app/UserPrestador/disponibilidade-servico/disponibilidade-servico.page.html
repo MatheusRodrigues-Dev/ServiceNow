@@ -25,28 +25,28 @@
   <h2 class="title">Para qual dia?</h2>
 
   <!-- Seção de hora -->
-  <div class="hour-section">
+  <div class="custom-hour-section">
     <ion-datetime
       display-format="YYYY-MM-DD HH:mm"
       picker-format="YYYY-MM-DD HH:mm"
       placeholder="Selecione a hora"
-      (ionChange)="onDateTimeChange($event)">
+      (ionChange)="onDateTimeChange($event)"
+    >
     </ion-datetime>
   </div>
-
   <!-- Tipo de Prioridade -->
   <div class="section">
     <p class="label">Tipo de Prioridade</p>
     <div class="button-group">
       <ion-button
         expand="block"
-        color="danger"
+        color="success"
         (click)="selectedPrioridade = 'disponivel'"
         >disponivel</ion-button
       >
       <ion-button
         expand="block"
-        color="warning"
+        color="danger"
         (click)="selectedPrioridade = 'indisponivel'"
         >indisponivel</ion-button
       >

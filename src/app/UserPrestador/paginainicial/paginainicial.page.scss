@@ -1,62 +1,133 @@
-.profile {
+// Variáveis para cores e tamanhos
+$color-light-bg: #f0f0f0;
+$color-dark-bg: #333;
+$color-service-bg: #ffe4c4;
+$color-service-hover-bg: #ff7f00;
+$color-dark-service-bg: #555;
+$color-text: #000;
+$color-dark-text: #ffffff;
+$color-accent: #008080;
+$color-dark-accent: #00bcd4;
+
+$border-radius: 8px;
+$box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+$padding: 15px;
+$margin: 20px;
+
+.content-background {
+  --ion-background-color: #f2f2f2; /* Cor de fundo suave */
+}
+.custom-profile {
   display: flex;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  padding: 20px 0;
-  background-color: #e5e5e5;
+  background-color: $color-light-bg;
+  padding: $padding;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
 
-  .avatar {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background-color: #ccc;
-    margin-bottom: 10px;
+  .avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .provider-name {
+      margin-top: 10px;
+      font-size: 18px;
+      color: $color-text;
+    }
   }
+}
 
-  .provider-name {
-    font-size: 18px;
-    font-weight: bold;
+// // Modo escuro
+// @media (prefers-color-scheme: dark) {
+//   .custom-profile {
+//     background-color: $color-dark-bg;
+
+//     .provider-name {
+//       color: $color-dark-accent;
+//     }
+//   }
+// }
+
+.services-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: $margin;
+
+  .services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0 20px;
+
+    .service-card {
+      width: 45%;
+      height: 120px;
+      background-color: $color-service-bg;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+
+      .service-name {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: $color-text;
+      }
+
+      &::after {
+        content: "";
+        width: 100%;
+        height: 20px;
+        background-color: $color-service-hover-bg;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        margin-top: auto;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
   }
 }
 
 .services-title {
-  padding: 10px 20px;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  color: #333;
+  text-align: center;
 }
+// // Modo escuro para serviços
+// @media (prefers-color-scheme: dark) {
+//   .services-container {
+//     background-color: #444; // Cor de fundo para o modo escuro
 
-.services {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 0 20px;
+//     .service-card {
+//       background-color: $color-dark-service-bg;
+//       color: $color-dark-text;
 
-  .service-card {
-    width: 45%;
-    height: 120px;
-    background-color: #ffe4c4;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+//       .service-name {
+//         color: $color-dark-accent;
+//       }
+//     }
+//   }
+// }
 
-    .service-name {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    &::after {
-      content: '';
-      width: 100%;
-      height: 20px;
-      background-color: #ff7f00;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-      margin-top: auto;
-    }
-  }
+.continue-button {
+  margin-top: 16px;
+  --background: #FF8902; /* Cor de fundo laranja */
+  --background-activated: #e68900; /* Cor ao pressionar o botão */
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
 }

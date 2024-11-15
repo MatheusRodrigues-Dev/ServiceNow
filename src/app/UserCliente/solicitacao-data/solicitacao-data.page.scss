@@ -7,7 +7,7 @@ ion-content {
 /* Estilo do cabeçalho */
 ion-header {
   ion-toolbar {
-    background-color: #FF8902; // Laranja para o cabeçalho
+    background-color: #ff8902; // Laranja para o cabeçalho
     color: #ffffff; // Texto branco
 
     ion-title {
@@ -26,13 +26,13 @@ ion-header {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  color: #FF8902; // Cor laranja
+  color: #ff8902; // Cor laranja
   margin: 10px 0 20px;
 }
 
 /* Botão Continuar */
 .continue-button {
-  --background: #FF8902; // Cor laranja
+  --background: #ff8902; // Cor laranja
   --color: #ffffff; // Texto branco
   font-size: 16px;
   font-weight: bold;
@@ -51,4 +51,25 @@ ion-header {
   font-weight: bold;
   color: #333333;
   margin-bottom: 10px;
+}
+
+.custom-hour-section {
+  padding: 15px; /* Espaçamento interno */
+}
+
+ion-datetime {
+  width: 100%; /* Faz o datetime ocupar toda a largura da seção */
+  border: 1px solid #ccc; /* Borda do datetime */
+  border-radius: 4px; /* Bordas arredondadas do datetime */
+  padding: 10px; /* Espaçamento interno do datetime */
+  font-size: 16px; /* Tamanho da fonte */
+  background-color: #f8f8f8; /* Cor de fundo */
+}
+
+/* Modo escuro */
+@media (prefers-color-scheme: dark) {
+  ion-datetime {
+    color: #00084e; /* Cor do texto em modo escuro (petro) */
+    border: 1px solid #444; /* Borda do datetime em modo escuro */
+  }
 }

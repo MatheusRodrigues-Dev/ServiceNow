@@ -58,6 +58,8 @@ export class SolicitacaoDataPage implements OnInit {
         selectedDateTime: this.selectedDateTime // Passa a data e hora selecionadas
       }
     });
+
+    this.selectedDateTime = '';
   }
 
 }

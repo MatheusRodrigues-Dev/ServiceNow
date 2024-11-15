@@ -73,6 +73,9 @@ export class DisponibilidadeServicoPage implements OnInit {
       console.log('Registro bem-sucedido!');
       this.router.navigate(['/prestador/paginainicial']);
 
+      this.selectedServico = '';
+      this.selectedPrioridade ='';
+
     } catch (error) {
       const errorMessage = this.getErrorMessage(error);
       this.showErrorAlert(errorMessage);

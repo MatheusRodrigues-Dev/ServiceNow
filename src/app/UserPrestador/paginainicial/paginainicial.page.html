@@ -4,36 +4,44 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="content-background">
   <!-- Profile Section -->
-  <div class="profile">
-    <ion-avatar slot="start">
-      <img src="assets/icon/user-check-icon.svg" alt="Ícone de usuário" />
-    </ion-avatar>
-    <div class="provider-name">Prestador {{ userName }}</div>
+  <div class="profile custom-profile">
+    <div class="avatar-container">
+      <ion-avatar>
+        <img src="assets/icon/user-check-icon.svg" alt="Ícone de usuário" />
+      </ion-avatar>
+      <div class="provider-name">Prestador {{ userName }}</div>
+    </div>
   </div>
 
   <!-- Services Section Title -->
   <div class="services-title">Seus Serviços</div>
 
+  <!-- Services Container -->
+  <div class="services-container">
+    <!-- Services Cards -->
+    <div class="services custom-services">
+      <div class="service-card">
+        <div class="service-name">Pintor</div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Eletricista</div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Encanador</div>
+      </div>
+      <div class="service-card">
+        <div class="service-name">Pedreiro</div>
+      </div>
+    </div>
 
-  <!-- Services Cards -->
-  <div class="services">
-    <div class="service-card">
-      <div class="service-name">Pintor</div>
-    </div>
-    <div class="service-card">
-      <div class="service-name">Eletricista</div>
-    </div>
-    <div class="service-card">
-      <div class="service-name">Encanador</div>
-    </div>
-    <div class="service-card">
-      <div class="service-name">Pedreiro</div>
-    </div>
+    <!-- Botão Continuar -->
+    <ion-button
+      expand="block"
+      (click)="botaocadastrar()"
+      class="continue-button"
+      >Cadastrar Serviço</ion-button
+    >
   </div>
-
-  <!-- Botão Continuar -->
-  <ion-button expand="block" (click)="botaocadastrar()" class="continue-button">Cadastrar Serviço</ion-button>
 </ion-content>
-

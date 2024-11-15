@@ -56,6 +56,10 @@ export class SolicitacoesServicoPage implements OnInit {
     // Navegar para a próxima página ou salvar os dados conforme necessário
     // Navegue para a próxima página, passando os dados como parâmetros
     this.router.navigate(['cliente/solicitacao-data'], { state: { dados } });
+    // Limpar os campos após a navegação
+    this.selectedServico = '';
+    this.selectedPrioridade = '';
+    this.descricao = '';
   }
 
 }
