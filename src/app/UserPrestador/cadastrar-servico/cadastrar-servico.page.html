@@ -1,0 +1,111 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cadastrar Serviço</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <h2 class="title">Vincular Serviço</h2>
+  <ion-item>
+    <ion-label>Grupo de Serviços</ion-label>
+    <ion-select
+      interface="popover"
+      class="custom-select"
+      [(ngModel)]="selectedGrupoServico"
+    >
+      <ion-select-option
+        *ngFor="let gruposServicos of gruposServicos"
+        [value]="gruposServicos"
+      >
+        {{ gruposServicos.nome }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Serviço</ion-label>
+    <ion-input
+      placeholder="Digite o nome do serviço"
+      class="input-field service-name"
+      [(ngModel)]="nomeServico"
+    ></ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label position="stacked">Valor de Referência</ion-label>
+    <ion-input
+      placeholder="R$ XXX,XX"
+      class="input-field reference-value"
+    ></ion-input>
+  </ion-item>
+
+  <div class="payment-section">
+    <p class="payment-label">Formas de Pagamento</p>
+    <div class="payment-options">
+      <div
+        class="payment-option"
+        [ngClass]="{'selected': selectedPayment === 'PIX'}"
+        (click)="selectPayment('PIX')"
+      >
+        <img
+          src="assets/icon/pix-icon.svg"
+          alt="Ícone Pix"
+          class="custom-icon"
+        />
+        <p>PIX</p>
+      </div>
+      <div
+        class="payment-option"
+        [ngClass]="{'selected': selectedPayment === 'Crédito'}"
+        (click)="selectPayment('Crédito')"
+      >
+        <ion-icon name="card-outline"></ion-icon>
+        <p>Crédito</p>
+      </div>
+      <div
+        class="payment-option"
+        [ngClass]="{'selected': selectedPayment === 'Débito'}"
+        (click)="selectPayment('Débito')"
+      >
+        <ion-icon name="card-outline"></ion-icon>
+        <p>Débito</p>
+      </div>
+      <div
+        class="payment-option"
+        [ngClass]="{'selected': selectedPayment === 'BitCoin'}"
+        (click)="selectPayment('BitCoin')"
+      >
+        <ion-icon name="logo-bitcoin"></ion-icon>
+        <p>BitCoin</p>
+      </div>
+      <div
+        class="payment-option"
+        [ngClass]="{'selected': selectedPayment === 'Boleto'}"
+        (click)="selectPayment('Boleto')"
+      >
+        <ion-icon name="receipt-outline"></ion-icon>
+        <p>Boleto</p>
+      </div>
+      <div
+        class="payment-option"
+        [ngClass]="{'selected': selectedPayment === 'Dinheiro'}"
+        (click)="selectPayment('Dinheiro')"
+      >
+        <ion-icon name="cash-outline"></ion-icon>
+        <p>Dinheiro</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="label">Breve Descrição</p>
+    <ion-textarea
+      placeholder="Descrição..."
+      class="description-textarea"
+      [(ngModel)]="descricao"
+    ></ion-textarea>
+  </div>
+
+  <ion-button expand="block" (click)="cadastrar()" class="confirm-button">Confirmar</ion-button>
+</ion-content>

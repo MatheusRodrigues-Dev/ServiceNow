@@ -51,4 +51,7 @@ export class PaginainicialPage implements OnInit {
     await alert.present();
   }
 
+  botaocadastrar(){
+    this.router.navigate(['/prestador/cadastrar-servico']);
+  }
 }

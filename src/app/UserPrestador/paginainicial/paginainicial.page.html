@@ -7,12 +7,15 @@
 <ion-content [fullscreen]="true">
   <!-- Profile Section -->
   <div class="profile">
-    <div class="avatar"></div>
+    <ion-avatar slot="start">
+      <img src="assets/icon/user-check-icon.svg" alt="Ícone de usuário" />
+    </ion-avatar>
     <div class="provider-name">Prestador {{ userName }}</div>
   </div>
 
   <!-- Services Section Title -->
   <div class="services-title">Seus Serviços</div>
+
 
   <!-- Services Cards -->
   <div class="services">
@@ -29,5 +32,8 @@
       <div class="service-name">Pedreiro</div>
     </div>
   </div>
+
+  <!-- Botão Continuar -->
+  <ion-button expand="block" (click)="botaocadastrar()" class="continue-button">Cadastrar Serviço</ion-button>
 </ion-content>
 

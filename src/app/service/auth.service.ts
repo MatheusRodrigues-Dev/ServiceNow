@@ -185,6 +185,42 @@ export class AuthService {
     );
   }
 
+  loadGrupoServicos(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const userType = localStorage.getItem('role');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<any[]>(`${this.apiUrl}/lista-grupos`, { headers }).pipe(
+      tap((data) => {
+        this.servicos = data;
+        console.log('Grupo de Servicos carregados com sucesso:', this.servicos.length);
+
+        // Redireciona baseado no tipo de usuário
+        if (userType === 'cliente') {
+          this.router.navigate(['/cliente/solicitacoes-servico']);
+        } else if (userType === 'prestador') {
+          this.router.navigate(['/prestador/cadastrar-servico']);  // Redireciona para a página do prestador
+        }
+      }),
+      catchError(error => {
+        console.error('Erro ao carregar Grupo de Servicos:', error);
+        if (error.status === 401) {
+          // Redireciona baseado no tipo de usuário
+          if (userType === 'cliente') {
+            this.router.navigate(['/cliente/solicitacoes-servico']);
+          } else if (userType === 'prestador') {
+            this.router.navigate(['/prestador/cadastrar-servico']);  // Redireciona para a página do prestador
+          }
+        }
+        return throwError(() => new Error('Ocorreu um erro ao carregar os Grupo de Servicos. Tente novamente mais tarde.'));
+      })
+    );
+  }
+
   loadPrestadores(selectedDateTime: string): Observable<any> {
     const token = localStorage.getItem('token');
     const userType = localStorage.getItem('role');
@@ -313,6 +349,51 @@ export class AuthService {
     };
 
     return this.http.post<any>(`${this.apiUrl}/disponibilidade-servicos`, requestBody, { headers }).pipe(
+      tap((response) => {
+        console.log('Response:', response);
+
+        // Armazena a mensagem de sucesso no localStorage
+        localStorage.setItem('successMessage', 'Serviço registrado com sucesso!');
+
+        // Navega para a página inicial
+        this.router.navigate(['/prestador/paginainicial']);
+      }),
+      catchError(error => {
+        console.error('Erro ao registrar serviço:', error);
+        if (error.status === 401) {
+          // Lógica de redirecionamento para usuários não autorizados
+        }
+        return throwError(() => new Error('Erro ao registrar serviço'));
+      })
+    );
+  }
+
+  vincularServico(
+    nome: string,
+    descricao: string,
+    grupo_id: number,
+  ): Observable<any> {
+    const token = localStorage.getItem('token');
+    const userID = localStorage.getItem('id');
+
+    if (!token || !userID) {
+      console.error('Token ou userID está faltando.');
+      return throwError(() => new Error('Token ou ID do usuário ausente'));
+    }
+
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    const requestBody = {
+      nome: nome,
+      descricao: descricao,
+      grupo_id: grupo_id
+    };
+
+    return this.http.post<any>(`${this.apiUrl}/vincular-services`, requestBody, { headers }).pipe(
       tap((response) => {
         console.log('Response:', response);
 

@@ -21,6 +21,10 @@ const routes: Routes = [
         loadChildren: () => import('../disponibilidade-servico/disponibilidade-servico.module').then(m => m.DisponibilidadeServicoPageModule)
       },
       {
+        path: 'cadastrar-servico',
+        loadChildren: () => import('../cadastrar-servico/cadastrar-servico.module').then( m => m.CadastrarServicoPageModule)
+      },
+      {
         path: '',
         redirectTo: '/prestador/paginainicial',
         pathMatch: 'full'
