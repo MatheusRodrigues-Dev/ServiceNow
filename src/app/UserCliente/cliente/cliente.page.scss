@@ -75,6 +75,7 @@ ion-button:hover ion-icon {
       font-size: 24px; /* Tamanho do ícone */
       color: var(--color-icon); /* Cor do ícone padrão */
       transition: color 0.3s ease, font-size 0.3s ease; /* Transição suave para cor e tamanho do ícone */
+      filter: grayscale(200%);
     }
 
     .tab-label {
@@ -83,7 +84,7 @@ ion-button:hover ion-icon {
       color: var(--color-icon); /* Cor do texto padrão */
       margin-left: 8px; /* Espaço entre o ícone e o texto */
       white-space: nowrap; /* Impede quebra de linha */
-      opacity: 0; /* Inicialmente oculto */
+      //opacity: 0; /* Inicialmente oculto */
       transition: opacity 0.3s ease, transform 0.3s ease; /* Transição suave para visibilidade e posição */
       text-align: center; /* Alinha o texto no centro */
     }
@@ -92,10 +93,11 @@ ion-button:hover ion-icon {
       --background: #ffffff; /* Fundo da aba selecionada */
       .tab-icon {
         color: var(--color-icon-selected); /* Cor do ícone da aba selecionada */
+        filter: grayscale(0);
         font-size: 30px; /* Aumenta o ícone quando a aba é selecionada */
       }
       .tab-label {
-        opacity: 1; /* Torna o texto visível */
+        opacity: 1; /* Torna o texto visível */ color: var(--color-icon-selected);
         transform: translateX(0); /* Move o texto para a posição original */
       }
     }

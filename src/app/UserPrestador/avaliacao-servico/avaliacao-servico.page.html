@@ -4,10 +4,37 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="content-background">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">avaliacao-servico</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Profile Section -->
+  <div class="profile custom-profile">
+    <div class="avatar-container">
+      <ion-avatar>
+        <img src="assets/icon/user-check-icon.svg" alt="Ícone de usuário" />
+      </ion-avatar>
+      <div class="provider-name">Prestador</div>
+    </div>
+  </div>
+
+<div class="container-service-prestado">
+  <div class="service-prestado">Seus Serviços Prestados</div>
+  <div class="service-prestado-listagem">
+    <div class="prestado-listagem-titulo">
+      
+      <div class="title-prestado">Serviços</div>
+      <div class="title-prestado-status">Status</div>
+    </div>
+    <div class="prestado-listagem-servicos">
+      <div class="icon-prestado"><img src="assets/icon/encanador.png" alt=""></div>
+      <div class="prestado-descricao">Serviço #2222</div>
+      <div class="status-descricao">Serviço <br>Concluído</div>
+    </div>
+  </div>
+</div>
+
 </ion-content>

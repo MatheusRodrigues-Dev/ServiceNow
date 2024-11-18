@@ -1,0 +1,99 @@
+$color-light-bg: #f0f0f0;
+$color-dark-bg: #333;
+$color-service-bg: #ffe4c4;
+$color-service-hover-bg: #ff7f00;
+$color-dark-service-bg: #555;
+$color-text: #000;
+$color-dark-text: #ffffff;
+$color-accent: #008080;
+$color-dark-accent: #00bcd4;
+
+$border-radius: 8px;
+$box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+$padding: 15px;
+$margin: 20px;
+
+.content-background {
+  --ion-background-color: #f2f2f2; /* Cor de fundo suave */
+  height: 100%;
+}
+
+.services-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container-service-prestado {
+    width: 100%;
+    color: #000;
+    text-align: center;
+    .service-prestado {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px;
+      color: #333;
+      text-align: center;
+      background-color: #ff7f00;
+      border-radius: 5px;
+      padding: .5em 0;
+    }
+    .prestado-listagem-titulo{
+      display: flex;
+      justify-content: space-between;
+      margin: 0 10px;
+      .title-prestado,
+      .title-prestado-status {
+        font-weight: 700;
+        font-size: 1.25em;
+      }
+    }
+    .prestado-listagem-servicos {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 10px;
+      align-items: center;
+      .status-descricao {
+        background-color: #1f9e63;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px 20px;
+      }
+    }
+  }
+  
+  .custom-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-light-bg;
+    padding: $padding;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+  
+    .avatar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      .provider-name {
+        margin-top: 10px;
+        font-size: 18px;
+        color: $color-text;
+      }
+    }
+  }
+  
+  .icon-prestado {
+      background-color: #cacaca;
+      padding: 10px;
+      border-radius: 5px;
+      width: 51px;
+      height: 51px;
+  }
