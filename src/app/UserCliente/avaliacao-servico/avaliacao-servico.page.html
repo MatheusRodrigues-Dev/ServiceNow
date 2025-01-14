@@ -5,18 +5,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="content-background">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">avaliacao-servico</ion-title>
-    </ion-toolbar>
-  </ion-header>
-      <!-- Profile Section -->
+  <!-- Profile Section -->
   <div class="profile custom-profile">
     <div class="avatar-container">
       <ion-avatar>
         <img src="assets/icon/user-check-icon.svg" alt="Ícone de usuário" />
       </ion-avatar>
-      <div class="provider-name">Cliente</div>
+      <div class="provider-name">Cliente {{ userName }}</div>
     </div>
   </div>
 
@@ -24,7 +19,7 @@
   <div class="service-prestado">Qual Serviço Precisa?</div>
   <div class="service-prestado-listagem">
     <div class="prestado-listagem-titulo">
-      
+
       <div class="title-prestado">Suas Solicitações</div>
       <div class="title-prestado-status">Status</div>
     </div>
